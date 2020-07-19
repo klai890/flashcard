@@ -107,22 +107,31 @@ function completeAdding(){
 
 // render seperate decks on click
 function renderDecks(){
-    // get all decks from local storage
+    // elements
     let allDeckObj = JSON.parse(localStorage.getItem('decks'));
     let decks = document.querySelectorAll('.deck');
     let flashcards_page = document.querySelector('#flashcards');
     let flashcards_home = document.querySelector('.flashcards-home')
     let lastCard = document.querySelector('#last-card')
     let renderName = document.querySelector('#currentDeckName')
-    console.log(renderName)
-    // get the flashcards div from html
-    let flashcards = document.querySelector('.slider')
+    let flashcards = document.querySelector('.slider');
+    let form = document.querySelector('.new-deck')
     
+    // render flashcards to screen
     decks.forEach(deck=>{
         deck.addEventListener('click', ()=>{
+            // switch flashcards, if necessary
+            flashcards.style.transition = 'transform .01s';
+            flashcards.style.transform = 'translateX(0)';
+
+            flashcards.addEventListener('transitionend', ()=>{
+                flashcards.style.transition = 'transform .5s ease-in-out';
+            })
+
             // render flashcards to screen, hide flashcard_home page
             flashcards_page.classList.remove('hide');
-            flashcards_home.classList.add('hide')
+            flashcards_home.classList.add('hide');
+            form.classList.add('hide');
             
             name = deck.innerText;
             cards = allDeckObj[name];
@@ -154,7 +163,7 @@ function renderDecks(){
                 innerDiv.appendChild(back);
                 outerDiv.appendChild(innerDiv);
                 flashcards.insertBefore(outerDiv, lastCard);
-                console.log(outerDiv)
+
                 slider()
             })
         })
@@ -188,14 +197,11 @@ function slider(){
         if (curr !== num_cards - 1){
             curr++;
             slider.style.transform = `translateX(-${curr}00%)`;
-            console.log(slider)
         }
     })
 
     cards.forEach(card=>{
-        card.addEventListener('click', ()=>{
-            card.classList.toggle('flip')
-        })
+        card.onclick =  ()=>{card.classList.toggle('flip')}
     })
 }
 
