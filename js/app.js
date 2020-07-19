@@ -83,24 +83,19 @@ function completeAdding(){
             let deckName = String(document.querySelector('#newDeckName').innerText);
 
             // update decks object
-            if (!allDecks[deckName]){
-                allDecks[deckName] = cards;
-                
-                // update decks in local storage
-                localStorage.setItem('decks', JSON.stringify(allDecks));
-                
-                // add the new deck name to side
-                let newDiv = elem('div');
-                newDiv.innerHTML = deckName;
-                decks.appendChild(newDiv);
-                
-                // hide new deck form
-                form.classList.add('hide');
-                home.classList.remove('hide')
-            }
-            else{
-                alert('Deck name already taken.')
-            }
+            allDecks[deckName] = cards;
+            
+            // update decks in local storage
+            localStorage.setItem('decks', JSON.stringify(allDecks));
+            
+            // add the new deck name to side
+            let newDiv = elem('div');
+            newDiv.innerHTML = deckName;
+            decks.appendChild(newDiv);
+            
+            // hide new deck form
+            form.classList.add('hide');
+            home.classList.remove('hide')
         })
     })
 }   
