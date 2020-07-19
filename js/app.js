@@ -56,7 +56,7 @@ function completeAdding(){
     let decks = document.querySelector('#decks');
     let form = document.querySelector('.new-deck')
     let complete = document.querySelector('#complete');
-    let home = document.querySelector('.flashcard-home')
+    let flashcards = document.querySelector('.flashcards')
     
     Object.keys(allDecks).forEach(d=>{
         let newDiv = document.createElement('div');
@@ -78,25 +78,25 @@ function completeAdding(){
             })
         })
         
-        complete.addEventListener('click', ()=>{
-            // Add to decks
-            let deckName = String(document.querySelector('#newDeckName').innerText);
+        // Add to decks
+        let deckName = String(document.querySelector('#newDeckName').innerText);
 
-            // update decks object
-            allDecks[deckName] = cards;
-            
-            // update decks in local storage
-            localStorage.setItem('decks', JSON.stringify(allDecks));
-            
-            // add the new deck name to side
-            let newDiv = elem('div');
-            newDiv.innerHTML = deckName;
-            decks.appendChild(newDiv);
-            
-            // hide new deck form
-            form.classList.add('hide');
-            home.classList.remove('hide')
-        })
+        // update decks object
+        allDecks[deckName] = cards;
+        
+        // update decks in local storage
+        localStorage.setItem('decks', JSON.stringify(allDecks));
+        
+        // add the new deck name to side
+        let newDiv = elem('div');
+        newDiv.innerHTML = deckName;
+        decks.appendChild(newDiv);
+        
+        // hide new deck form
+        form.classList.add('hide');
+        flashcards.classList.remove('hide')
+        // force reload because I couldn't figure out why the link wasn't working
+        location.reload();
     })
 }   
 
