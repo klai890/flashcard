@@ -1,0 +1,221 @@
+textarea{
+    border: none;
+    min-height: 100px;
+    min-width: 200px;
+    padding: .5em;
+    outline: none;
+    resize: none;
+    background: #eee;
+    border-radius: 2px;
+}
+
+i{
+    color: #333;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: .5em;
+    transition: color .3s ease;
+}
+
+i:active{
+    transform: scale(.9);
+}
+
+.sidebar{
+    background: rgba(0,0,0,.7);
+    color: white;
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 15rem;
+    /* navbar height */
+    padding-top: 8vh;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.side-content *{
+    font-weight: normal;
+    cursor: pointer;
+    font-size: 1em;
+    padding: .5rem 1rem;
+    transition: color .2s ease;
+}
+
+.sidebar-head{
+    color: #fff;
+    background: url('../img/card.svg') 2.5% center / 25px no-repeat;
+    text-indent: 2rem;
+    margin: .5rem;
+    font-size: 1.25rem;
+}
+
+.new{
+    margin-top: auto;
+    padding: 1rem;
+    text-indent: 2em;
+    cursor: pointer;
+    transition: color .5s ease;
+    background: url('https://image.flaticon.com/icons/svg/1828/1828819.svg') 5% center / 20px no-repeat, #333;
+}
+
+.new:hover{
+    color: var(--green);
+}
+
+.flashcards *:hover{
+    color: var(--green);
+}
+
+/* ==================== Create a deck styling ==================== */
+.new-deck{
+    position: fixed;
+    top: 8vh;
+    height: 700px;
+    padding-bottom: 5rem;
+    width: calc(100% - 15rem);
+    overflow: scroll;
+    background: white;
+    z-index: 5;
+    display: none;
+
+    text-align: center;
+}
+
+.new-deck.show{
+    display: block;
+}
+
+.new-deck h1{
+    background: url('https://image.flaticon.com/icons/svg/565/565722.svg') 100% center / 20px no-repeat;
+    padding: 0 2rem;
+    width: 80%;
+    margin: auto;
+    outline: none;
+}
+
+.new-deck .controls{
+    bottom: 0;
+    text-align: center;
+    display: flex;
+    width: 100%;
+}
+
+.new-cards{
+    display: grid;
+    gap: 1rem;
+    height: 50%;
+    width: 100%;
+    padding: 2.5rem;
+}
+
+.new-card{
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr;
+}
+
+.new-control{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: color .3s ease;
+}
+
+.new-control:hover, .new-control:hover i{
+    color: var(--green);
+}
+
+/* ====================== content styling ====================== */
+.content{
+    /* margins for sidebar width, navbar height */
+    margin-left: 15rem;
+    margin-top: 8vh;
+    height: calc(100vh - 8vh);
+    width: calc(100vw - 15rem);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    --card-width: 700px;
+    --card-height: 400px;
+}
+/* separate children */
+.content > *{
+    margin: 1.5rem 0;
+}
+
+/* slider styling */
+.slider-container{
+    width: var(--card-width);
+    height: var(--card-height);
+
+    overflow: hidden;
+}
+
+.slider{
+    display: flex;
+}
+
+/* card styling */
+.card-container{
+    flex: none;
+    width: var(--card-width);
+    height: var(--card-height);
+    transition: transform .5s ease-in-out;
+    cursor: pointer;
+}
+
+.card{
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+
+    transform-style: preserve-3d;
+    transition: transform .6s ease-in-out;
+}
+
+.front, .back{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #fff;
+    border: 1px solid black;
+    position: absolute;
+    backface-visibility: hidden;
+}
+
+.back{
+    transform: rotateX(-180deg);
+}
+
+/* make flip onclick in js, but for now have hover */
+.card-container.flip .card{
+    transform: rotateX(180deg);
+}
+
+.controls{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--card-width);
+}
+
+.controls > *{
+    padding: .5rem;
+}
+
+.fa-random{
+    position: absolute;
+    right: 0;
+}

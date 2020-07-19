@@ -1,0 +1,86 @@
+.hero{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.title{
+    font-size: 3rem;
+}
+
+.subtitle{
+    line-height: 3;
+    font-size: 1.25rem;
+    color: #333;
+}
+
+.hero::after{
+    content: '↧';
+    color: #333;
+    font-size: 5rem;
+    font-weight: lighter;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+}
+
+section{
+    position: relative;
+    padding: 5rem;
+}
+
+.pannel{
+    display: flex;
+}
+
+.pannel:nth-child(odd){
+    flex-direction: row-reverse;
+    text-align: end;
+}
+
+.box{
+    margin: auto;
+    max-width: 40%;
+    line-height: 2;
+}
+
+.box h1{
+    line-height: 3;
+    font-size: 2rem;
+}
+
+.pannel img{
+    max-width: 50%;
+    padding: 1rem;
+    margin: auto;
+}
+
+@media screen and (max-width: 1000px){
+    .pannel, .pannel:nth-child(odd){
+        flex-direction: column;
+        text-align: start;
+    }
+    .pannel img, .box{
+        max-width: 100%;
+    }
+    /* push down image */
+    .pannel .box{
+        margin: 1rem 0;
+    }
+}
+
+@media screen and (max-width: 600px){
+    section{
+        padding: 0;
+        margin: 5rem 2rem;
+    }
+    /* hero shrink */
+    .hero{
+        height: 85vh;
+    }
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href='css/flashcards.css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <script src="js/app.js" defer></script>
+    <title>Flashcards</title>
+</head>
+<body>
+    <!-- top navigation -->
+    <nav class="navbar">
+        <a href="index.html" class='home'>FlashEd</a>
+        <a href="flashcards.html">Flashcards</a>
+        <a href="account.html">Log In</a>
+    </nav>
+    <!-- side navigation -->
+    <nav class="sidebar">
+        <div class="side-content" id='decks'>
+            <h3 class="sidebar-head">
+                Your Flashcards
+            </h3>
+            <div class="deck">
+                Calculus
+            </div>
+        </div>
+        <div class="new category" id='newDeck'>New Deck</div>
+    </nav>
+    <!-- content -->
+    <div class="content">
+        <div class="new-deck">
+            <h1 contenteditable='true' id='newDeckName'>New Deck</h1>
+            <div class="new-cards" id='new-cards'>
+                <div class="new-card">
+                    <textarea type="text" class='new-front' placeholder='Front of Card'></textarea>
+                    <textarea type="text" class='new-back' placeholder='Back of Card'></textarea>
+                </div>
+                <div class="new-card">
+                    <textarea type="text" class='new-front' placeholder='Front of Card'></textarea>
+                    <textarea type="text" class='new-back' placeholder='Back of Card'></textarea>
+                </div>
+                <div class="new-card">
+                    <textarea type="text" class='new-front' placeholder='Front of Card'></textarea>
+                    <textarea type="text" class='new-back' placeholder='Back of Card'></textarea>
+                </div>
+                <div class="controls" id='new-controls'>
+                    <div class='new-control' id='more-cards'>
+                        <p>Add More Cards</p>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class='new-control' id="complete">
+                        <p>Finished</p>
+                        <i class="fas fa-check"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h1>Deck Name</h1>
+        <div class="slider-container">
+            <div class="slider">
+                <div class="card-container">
+                    <div class="card">
+                        <div class="front">
+                            front
+                        </div>
+                        <div class="back">
+                            back
+                        </div>
+                    </div>
+                </div>
+                <div class="card-container" id='last-card'>
+                    <div class="card">
+                        <div class="front">Completed Set!</div>
+                        <div class="back">Completed Set!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="controls">
+            <i class="fas fa-arrow-left" id='prev'></i>
+            <p class="fraction">this/total</p>
+            <i class="fas fa-arrow-right" id='next'></i>
+            <i class="fas fa-random"></i>
+        </div>
+    </div>
+</body>
+</html>
