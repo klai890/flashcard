@@ -1,19 +1,169 @@
 document.addEventListener('DOMContentLoaded', app);
-var decks = {
-    'calculus': [{
-        'front': 'derivative',
-        'back': 'rate of change'
-    }],
-    'python': [{
-        'front': 'tuple',
-        'back': 'immutable list'
-    }]
-}
 
 function app(){
-    slider()
-    addCards()
-    completeAdding()
+    addCards();
+    renderDecks();
+    toHomePage();
+}
+
+
+// add the form
+function addCards(){
+    // get elements
+    let plus = document.querySelector('#more-cards');
+    let newCards = document.querySelector('#new-cards')
+    let controls = document.querySelector('#new-controls')
+    let newDeck = document.querySelector('#newDeck');
+    let form = document.querySelector('.new-deck')
+    let flashcard_home = document.querySelector('.flashcards-home')
+    
+    // display new deck form
+    newDeck.addEventListener('click', ()=>{
+        form.classList.remove('hide');
+        flashcard_home.classList.add('hide')
+    })
+    
+    
+    // add card
+    plus.addEventListener('click', ()=>{
+        newCard = document.createElement('div');
+        newCard.classList.add('new-card')
+        
+        front = document.createElement('textarea');
+        front.classList.add('new-front')
+        front.placeholder = 'Front of Card';
+        
+        back = document.createElement('textarea')
+        back.classList.add('new-back');
+        back.placeholder = 'Back of Card'
+        
+        newCard.appendChild(front)
+        newCard.appendChild(back)
+        newCards.insertBefore(newCard, controls);
+    })
+    // submit the form
+    completeAdding();
+}
+
+// add cards submission functionality
+function completeAdding(){
+    // local decks object
+    var allDecks = localStorage.getItem('decks') == null ? {} : JSON.parse(localStorage.getItem('decks'));
+    
+    // elements
+    let newCards = document.querySelectorAll('.new-card');
+    let decks = document.querySelector('#decks');
+    let form = document.querySelector('.new-deck')
+    let complete = document.querySelector('#complete');
+    
+    Object.keys(allDecks).forEach(d=>{
+        let newDiv = document.createElement('div');
+        newDiv.id = `${d.toLowerCase()}-deck`;
+        newDiv.classList.add('deck');
+        newDiv.innerHTML = d;
+        decks.appendChild(newDiv);
+    })
+    
+    
+    // when press complete
+    complete.addEventListener('click', ()=>{
+        // get the new cards
+        cards = []
+        newCards.forEach(card=>{
+            cards.push({
+                'front': card.children[0].value,
+                'back': card.children[1].value
+            })
+        })
+        
+        complete.addEventListener('click', ()=>{
+            // Add to decks
+            let deckName = String(document.querySelector('#newDeckName').innerText);
+            
+            // first, check if name taken
+            if (decks != null && deckName in Object.keys(decks)){
+                console.log('taken')
+            }
+            // if not taken...
+            else{
+                // update decks object
+                allDecks[deckName] = cards;
+                
+                // update decks in local storage
+                localStorage.setItem('decks', JSON.stringify(allDecks));
+                
+                // add the new deck name to side
+                let newDiv = elem('div');
+                newDiv.innerHTML = deckName;
+                decks.appendChild(newDiv);
+                
+                // hide new deck form
+                form.classList.remove('show');
+            }
+            
+        })
+    })
+}   
+
+// render seperate decks on click
+function renderDecks(){
+    // get all decks from local storage
+    let allDeckObj = JSON.parse(localStorage.getItem('decks'));
+    let decks = document.querySelectorAll('.deck');
+    let flashcards_page = document.querySelector('#flashcards');
+    let flashcards_home = document.querySelector('.flashcards-home')
+    let lastCard = document.querySelector('#last-card')
+    let renderName = document.querySelector('#currentDeckName')
+    console.log(renderName)
+    // get the flashcards div from html
+    let flashcards = document.querySelector('.slider')
+    
+    decks.forEach(deck=>{
+        deck.addEventListener('click', ()=>{
+            // render flashcards to screen, hide flashcard_home page
+            flashcards_page.classList.remove('hide');
+            flashcards_home.classList.add('hide')
+            
+            name = deck.innerText;
+            cards = allDeckObj[name];
+            renderName.innerText = name;
+
+            let toRemove = flashcards.querySelectorAll('.deck-card')
+            toRemove.forEach(card=>{
+                card.remove()
+            })
+            
+            cards.forEach(card=>{
+                // remove other deck cards from DOM
+                // render new cards to DOM
+                let outerDiv = elem('div');
+                outerDiv.classList.add('card-container')
+                outerDiv.classList.add('deck-card')
+
+                let innerDiv = elem('div');
+                innerDiv.classList.add('card')
+                let front = elem('div');
+                front.classList.add('front');
+                let back = elem('div')
+                back.classList.add('back')
+                
+                front.innerText = card.front;
+                back.innerText = card.back;
+                
+                innerDiv.appendChild(front);
+                innerDiv.appendChild(back);
+                outerDiv.appendChild(innerDiv);
+                flashcards.insertBefore(outerDiv, lastCard);
+                console.log(outerDiv)
+                slider()
+            })
+        })
+    })
+}
+
+// document.createElement('x') got very annoying
+function elem(name){
+    return document.createElement(name)
 }
 
 // control flashcard sliding
@@ -24,27 +174,21 @@ function slider(){
     const cards = document.querySelectorAll('.card-container')
 
     num_cards = cards.length;
-    curr = 0;
+    let curr = 0;
 
     prev.addEventListener('click', ()=>{
-        console.log('prev clicked!')
         if (curr !== 0){
             curr--;
-            cards.forEach(card=>{
-                card.style.transform = `translateX(-${curr}00%)`;
-                console.log(card)
-            })
+            slider.style.transform = `translateX(-${curr}00%)`;
+            console.log(slider)
         }
     })
-
+    
     next.addEventListener('click', ()=>{
         if (curr !== num_cards - 1){
-            console.log('next clicked!')
             curr++;
-            cards.forEach(card=>{
-                card.style.transform = `translateX(-${curr}00%)`;
-                console.log(card)
-            })
+            slider.style.transform = `translateX(-${curr}00%)`;
+            console.log(slider)
         }
     })
 
@@ -53,85 +197,16 @@ function slider(){
             card.classList.toggle('flip')
         })
     })
-
 }
 
-// add cards form functionality
-function addCards(){
-    // get elements
-    let plus = document.querySelector('#more-cards');
-    let newCards = document.querySelector('#new-cards')
-    let controls = document.querySelector('#new-controls')
-    let newDeck = document.querySelector('#newDeck');
-    let form = document.querySelector('.new-deck')
+// render home page
+function toHomePage(){
+    let homeLink = document.querySelector('#flashcards-home-page')
+    let flashcards_page = document.querySelector('#flashcards');
+    let flashcards_home = document.querySelector('.flashcards-home')
 
-    // display new deck form
-    newDeck.addEventListener('click', ()=>{
-        form.classList.add('show')
-    })
-
-
-    // add card
-    plus.addEventListener('click', ()=>{
-        newCard = document.createElement('div');
-        newCard.classList.add('new-card')
-        
-        front = document.createElement('textarea');
-        front.classList.add('new-front')
-        front.placeholder = 'Front of Card';
-
-        back = document.createElement('textarea')
-        back.classList.add('new-back');
-        back.placeholder = 'Back of Card'
-
-        newCard.appendChild(front)
-        newCard.appendChild(back)
-        newCards.insertBefore(newCard, controls);
-
+    homeLink.addEventListener('click', ()=>{
+        flashcards_home.classList.remove('hide')
+        flashcards_page.classList.add('hide')
     })
 }
-
-// add cards submission functionality
-function completeAdding(){
-    // elements
-    let deckName = String(document.querySelector('#newDeckName').innerText);
-    let newCards = document.querySelectorAll('.new-card');
-    let submit = document.querySelector('#complete');
-    let decks = document.querySelector('.decks');
-    let form = document.querySelector('.new-deck')
-    complete = document.querySelector('#complete');
-
-    // when press complete
-    complete.addEventListener('click', ()=>{
-        cards = []
-
-        newCards.forEach(card=>{
-            cards.push({
-                'front': card.children[0].value,
-                'back': card.children[1].value
-            })
-        })
-
-        complete.addEventListener('click', ()=>{
-            // Add to decks
-            // first, check if name taken
-            if (decks != null && deckName in Object.keys(decks)){
-                console.log('taken')
-            }
-            // if not taken...
-            else{
-                // update decks object
-                decks[deckName] = cards;
-                // store to local storage
-                if (!localStorage.getItem('decks')){
-                    console.log('false')
-                    localStorage.setItem('decks', decks)
-                }
-
-                // hide new deck form
-                form.classList.remove('show')
-            }
-
-        })
-    })
-}   

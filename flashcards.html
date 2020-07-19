@@ -13,24 +13,20 @@
     <!-- top navigation -->
     <nav class="navbar">
         <a href="index.html" class='home'>FlashEd</a>
-        <a href="flashcards.html">Flashcards</a>
-        <a href="account.html">Log In</a>
+        <a href="flashcards.html">My Flashcards</a>
     </nav>
     <!-- side navigation -->
     <nav class="sidebar">
         <div class="side-content" id='decks'>
-            <h3 class="sidebar-head">
+            <h3 class="sidebar-head" id='flashcards-home-page'>
                 Your Flashcards
             </h3>
-            <div class="deck">
-                Calculus
-            </div>
         </div>
         <div class="new category" id='newDeck'>New Deck</div>
     </nav>
     <!-- content -->
     <div class="content">
-        <div class="new-deck">
+        <div class="new-deck hide">
             <h1 contenteditable='true' id='newDeckName'>New Deck</h1>
             <div class="new-cards" id='new-cards'>
                 <div class="new-card">
@@ -57,33 +53,32 @@
                 </div>
             </div>
         </div>
-        <h1>Deck Name</h1>
-        <div class="slider-container">
-            <div class="slider">
-                <div class="card-container">
-                    <div class="card">
-                        <div class="front">
-                            front
+
+        <div class="flashcards-home">
+            <h1>Welcome to your Flashcard Board!</h1>
+            <p>Click on a deck on the left, or create a deck to get started!</p>
+        </div>
+
+        <div class="flashcards hide" id='flashcards'>
+            <h1 id='currentDeckName'>Deck Name</h1>
+            <div class="slider-container">
+                <div class="slider">
+                    <div class="card-container" id='last-card'>
+                        <div class="card">
+                            <div class="front">Completed Set!</div>
+                            <div class="back">Completed Set!</div>
                         </div>
-                        <div class="back">
-                            back
-                        </div>
-                    </div>
-                </div>
-                <div class="card-container" id='last-card'>
-                    <div class="card">
-                        <div class="front">Completed Set!</div>
-                        <div class="back">Completed Set!</div>
                     </div>
                 </div>
             </div>
+            <div class="controls">
+                <i class="fas fa-arrow-left" id='prev'></i>
+                <p class="fraction">this/total</p>
+                <i class="fas fa-arrow-right" id='next'></i>
+                <i class="fas fa-random"></i>
+            </div>
         </div>
-        <div class="controls">
-            <i class="fas fa-arrow-left" id='prev'></i>
-            <p class="fraction">this/total</p>
-            <i class="fas fa-arrow-right" id='next'></i>
-            <i class="fas fa-random"></i>
-        </div>
+        
     </div>
 </body>
 </html>

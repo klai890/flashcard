@@ -28,6 +28,34 @@ footer{
     text-align: center;
 }
 
+h1{
+    text-align: center;
+    padding: .5em;
+}
+
+textarea{
+    border: none;
+    min-height: 100px;
+    min-width: 200px;
+    padding: .5em;
+    outline: none;
+    resize: none;
+    background: #eee;
+    border-radius: 2px;
+}
+
+i{
+    color: #333;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: .5em;
+    transition: color .3s ease;
+}
+
+i:active{
+    transform: scale(.9);
+}
+
 /* =========================== nav styling =========================== */
 .navbar{
     position: fixed;
