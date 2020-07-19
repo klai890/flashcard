@@ -4,6 +4,7 @@ function app(){
     addCards();
     renderDecks();
     toHomePage();
+    mobileNav()
 }
 
 
@@ -214,5 +215,14 @@ function toHomePage(){
     homeLink.addEventListener('click', ()=>{
         flashcards_home.classList.remove('hide')
         flashcards_page.classList.add('hide')
+    })
+}
+
+function mobileNav(){
+    let sidebar = document.querySelector('.sidebar');
+    let burger = document.querySelector('.burger');
+    burger.addEventListener('click', ()=>{
+        sidebar.classList.toggle('slideIn');
+        burger.classList.toggle('white')
     })
 }

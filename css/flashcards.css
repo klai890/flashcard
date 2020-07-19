@@ -1,5 +1,6 @@
-.show{
-    display: block;
+h1{
+    text-align: center;
+    padding: .5em;
 }
 
 .hide{
@@ -38,6 +39,21 @@
     font-size: 1.25rem;
 }
 
+.burger{
+    position: fixed;
+    top: 8vh;
+    margin: .5rem;
+    display: none;
+    cursor: pointer;
+}
+
+.line{
+    height: 2px;
+    width: 30px;
+    background: var(--green);
+    margin: .5em;
+}
+
 .new{
     margin-top: auto;
     padding: 1rem;
@@ -54,6 +70,7 @@
 /* ================= Flashcards home styling ================= */
 .flashcards-home{
     text-align: center;
+    padding: 1rem;
 }
 
 /* ==================== Create deck form styling ==================== */
@@ -222,8 +239,24 @@
 }
 
 @media screen and (max-width: 800px){
+    .burger{
+        display: block;
+        z-index: 5;
+    }
     .sidebar{
-        display: none;
+        height: 100vh;
+        width: 50vw;
+        background: #333;
+        z-index: 5;
+        transition: transform .5s ease-in-out;
+        transform: translateX(-100%);
+    }
+    .sidebar.slideIn{
+        transform: translateX(0%);
+    }
+    .sidebar.slideIn h3{
+        background: none;
+        text-indent: 3rem;
     }
     .content{
         width: 100%;

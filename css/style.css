@@ -28,11 +28,6 @@ footer{
     text-align: center;
 }
 
-h1{
-    text-align: center;
-    padding: .5em;
-}
-
 textarea{
     border: none;
     min-height: 100px;
