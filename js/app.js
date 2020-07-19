@@ -56,6 +56,7 @@ function completeAdding(){
     let decks = document.querySelector('#decks');
     let form = document.querySelector('.new-deck')
     let complete = document.querySelector('#complete');
+    let home = document.querySelector('.flashcard-home')
     
     Object.keys(allDecks).forEach(d=>{
         let newDiv = document.createElement('div');
@@ -80,14 +81,9 @@ function completeAdding(){
         complete.addEventListener('click', ()=>{
             // Add to decks
             let deckName = String(document.querySelector('#newDeckName').innerText);
-            
-            // first, check if name taken
-            if (decks != null && deckName in Object.keys(decks)){
-                console.log('taken')
-            }
-            // if not taken...
-            else{
-                // update decks object
+
+            // update decks object
+            if (!allDecks[deckName]){
                 allDecks[deckName] = cards;
                 
                 // update decks in local storage
@@ -99,9 +95,12 @@ function completeAdding(){
                 decks.appendChild(newDiv);
                 
                 // hide new deck form
-                form.classList.remove('show');
+                form.classList.add('hide');
+                home.classList.remove('hide')
             }
-            
+            else{
+                alert('Deck name already taken.')
+            }
         })
     })
 }   
